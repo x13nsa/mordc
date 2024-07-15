@@ -19,5 +19,4 @@ test_text_to_morse () {
   assertEquals "$(./mordc e "between days")" "-... . - .-- . . -. / -.. .- -.-- ... "
 }
 
-
 . /usr/bin/shunit2
