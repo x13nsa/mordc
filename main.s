@@ -50,14 +50,13 @@ _start:
 	je	.encode_mode
 	cmpl	$'d', %eax
 	je	.decode_mode
-
 .print_usage:
 	_SHMSG	usage_m(%rip), usage_l(%rip)
 	_EXIT	$1
 
 .encode_mode:
 	movzbl	(%r15), %eax
-	testl	%eax, %eax	
+	testl	%eax, %eax
 	jz	.byebye
 	movl	%eax, %edi
 	call	is_alpha_
@@ -79,7 +78,7 @@ _start:
 	call	strlen_
 	_PRINT	%rbx, %rax
 	jmp	.encode_continue
-.encode_space:	
+.encode_space:
 	_HELPCH	$27
 .encode_continue:
 	_HELPCH	$26
@@ -87,8 +86,6 @@ _start:
 	jmp	.encode_mode
 
 .decode_mode:
-	_EXIT	$69
-
 .byebye:
 	_HELPCH	$28
 	_EXIT	$0
