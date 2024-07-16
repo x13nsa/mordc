@@ -1,3 +1,9 @@
+#                                     .-.	art by: cp97
+#  ((_,...,_))   __ ___   ___  _ __ __| | ___ 	coded by: x13nsa
+#     |o o|     '_ ` _ \ / _ \| '__/ _` |/ __|	date: Jul 15 2024 (happy birthday!!)
+#     \   /     | | | | | (_) | | | (_| | (__ 
+#      ^-^      | |_| |_|\___/|_|  \__,_|\___|
+.section	.text
 .section	.text
 
 .globl	is_lower_
