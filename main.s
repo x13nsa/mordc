@@ -1,3 +1,8 @@
+.section	.bss
+	.type	.ccode, @object
+	.size	.ccode, 5
+	.ccode:	.zero	5
+
 .section	.text
 .globl		_start
 
@@ -31,6 +36,26 @@
 	movq	$1, %rdx
 	syscall
 .endm
+
+#  ____________
+# < but is it? >
+#  ------------
+#         \   ^__^
+#          \  (oo)\_______
+#             (__)\       )\/\
+#                 ||----w |
+#                 ||     ||
+morse_code_:
+	movl	$1, %eax
+	cmpb	$'.', %dil
+	je	.morse_code_end
+	cmpb	$'-', %dil
+	je	.morse_code_end
+	cmpb	$'/', %dil
+	je	.morse_code_end
+	movl	$0, %eax
+.morse_code_end:
+	ret
 
 _start:
 	# Getting number of arguments.
@@ -86,6 +111,65 @@ _start:
 	jmp	.encode_mode
 
 .decode_mode:
+	leaq	.ccode(%rip), %r14
+	movq	$0, %r13
+.decode_loop:
+	movzbl	(%r15), %eax
+	testl	%eax, %eax
+	jz	.byebye
+	movl	%eax, %edi
+	call	morse_code_
+	testl	%eax, %eax
+	jz	.decode_print_non_morse
+	cmpb	$'/', %dil
+	je	.decode_print_space
+	movb	%dil, (%r14)
+	incq	%r14
+	incq	%r13
+	jmp	.decode_continue
+.decode_print_non_morse:
+	cmpb	$' ', %dil
+	je	.decode_decode
+	_PRINT	%r15, $1
+	jmp	.decode_continue
+.decode_decode:
+	testq	%r13, %r13
+	jz	.decode_continue
+	cmpq	$4, %r13
+	jg	.decode_unknown	
+	movq	$0, %rbx
+.decode_decode_find:
+	cmpq	$26, %rbx
+	je	.decode_unknown
+	leaq	codes(%rip), %rax
+	movq	(%rax, %rbx, 8), %r12
+	movq	%r12, %rdi
+	call	strlen_
+	movq	%rax, %rdx
+	cmpq	%rdx, %r13
+	jne	.decode_decode_inc
+	movq	%r12, %rdi
+	leaq	.ccode(%rip), %rsi
+	call	strncmp_
+	testl	%eax, %eax
+	jnz	.decode_decode_found
+.decode_decode_inc:
+	incq	%rbx
+	jmp	.decode_decode_find
+.decode_decode_found:
+	_HELPCH	%rbx
+	leaq	.ccode(%rip), %r14
+	movq	$0, %r13
+	jmp	.decode_continue
+.decode_unknown:
+	_SHMSG	unknown_m(%rip), unknown_l(%rip)
+	jmp	.decode_continue
+.decode_print_space:
+	_HELPCH	$26
+.decode_continue:
+	incq	%r15
+	jmp	.decode_loop
+
 .byebye:
 	_HELPCH	$28
 	_EXIT	$0

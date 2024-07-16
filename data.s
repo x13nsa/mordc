@@ -6,3 +6,8 @@
 
 	helpchars:	.string	"abcdefghijklmnopqrstuvwxyz /\n"
 	.globl		helpchars
+
+	unknown_m:	.string "<?>"
+	unknown_l:	.long	4
+	.globl		unknown_m
+	.globl		unknown_l

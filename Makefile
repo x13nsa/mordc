@@ -1,4 +1,4 @@
-objs = main.o data.o types.o morse.o strlen.o
+objs = main.o data.o types.o morse.o strlen.o strncmp.o
 exec = mordc
 
 all: $(exec)

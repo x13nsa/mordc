@@ -19,7 +19,12 @@ test_text_to_morse () {
   assertEquals "$(./mordc e "between days")" "-... . - .-- . . -. / -.. .- -.-- ... "
 }
 
-
-
+test_morse_to_text () {
+  assertEquals "$(./mordc d ".... --- .-.. .- ")" "hola"
+  assertEquals "$(./mordc d ".. / -.. .. -.. / -. --- - / -.- -. --- .-- ")" "i did not know"
+  assertEquals "$(./mordc d "--- .... / -.. --- ...- . !!!")" "oh dove!!!"
+  assertEquals "$(./mordc d "-..- 86 / .. ... / .- .-- . ... --- -- . ")" "x86 is awesome"
+  assertEquals "$(./mordc d "--.- ..- .- -. -.. / - ..- / ... --- ..- .-. .. ... ")" "quand tu souris"
+}
 
 . /usr/bin/shunit2
