@@ -1,8 +1,8 @@
-#                                     .-.	art by: cp97
-#  ((_,...,_))   __ ___   ___  _ __ __| | ___ 	coded by: x13nsa
-#     |o o|     '_ ` _ \ / _ \| '__/ _` |/ __|	date: Jul 15 2024 (happy birthday!!)
-#     \   /     | | | | | (_) | | | (_| | (__ 
-#      ^-^      | |_| |_|\___/|_|  \__,_|\___|
+#                                     .-.	art by: 	cp97
+#  ((_,...,_))   __ ___   ___  _ __ __| | ___ 	coded by: 	x13nsa
+#     |o o|     '_ ` _ \ / _ \| '__/ _` |/ __|	last update:	july 15 2024 (happy birthday!!)
+#     \   /     | | | | | (_) | | | (_| | (__
+#      ^-^      | |_| |_|\___/|_|  \__,_|\___|	tabs: 8
 .section	.bss
 	.type	.ccode, @object
 	.size	.ccode, 5
@@ -141,7 +141,7 @@ _start:
 	testq	%r13, %r13
 	jz	.decode_continue
 	cmpq	$4, %r13
-	jg	.decode_unknown	
+	jg	.decode_unknown
 	movq	$0, %rbx
 .decode_decode_find:
 	cmpq	$26, %rbx
